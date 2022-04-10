@@ -6,16 +6,16 @@ from tkinter.ttk import *
 import pymysql
 
 # DB 관련 정보 설정
-DB_IP_ADDRESS = '127.0.0.1'
-DB_PORT = 3306
-DB_USER = 'root'
-DB_PASSWORD = 'rootpassword'
-DB_DBNAME = 'TEAM_DB'
+DB_IP_ADDRESS = '192.168.0.100'
+DB_PORT = 35678
+DB_USER = 'ysgsi'
+DB_PASSWORD = 'DBteam777!'
+DB_DBNAME = 'INDIVIDUAL_DB'
 
 '''
 함수 명 : initialize_widget 
 설명 : Python Application Form GUI를 구성하는 각종 Widget의 선언과 그 Layout 구성에 대한 코드를 구현한 함수 입니다.
-주의 : 가장 마지막 코드는  window.mainloop()로 종료.
+주의 : 가장 마지막 코드는  window.mainloop()로 종료.--
 '''
 def initialize_widget():
     # Widget 중에 외부 함수에서 접근을 해서 값을 가져오거나 값을 설정할 Widge을 전역변수로 선언
@@ -36,44 +36,41 @@ def initialize_widget():
     # 부서 정보 조회 Button Widget
     btn_db_get_dept = Button(window, text="Dept 정보조회", command=click_btn_get_dept_info)
     btn_db_get_dept.place(x=140, y=5, width=120, height=30)
+
     # 부서 정보 조회용 테이블형태의 Treeview Widget
-    table_dept_info = Treeview(window, columns=["부서ID", "부서명", "예산"])
-    table_dept_info.place(x=10, y=50, width=500, height=190)
-    table_dept_info.column("부서ID", width=100, anchor="center")
-    table_dept_info.heading("부서ID", text="부서ID", anchor="center")
-    table_dept_info.column("부서명", width=200, anchor="center")
-    table_dept_info.heading("부서명", text="부서명", anchor="center")
-    table_dept_info.column("예산", width=200, anchor="center")
-    table_dept_info.heading("예산", text="예산", anchor="center")
-    table_dept_info["show"] = "headings"
+    table_dept_info = Treeview(window, columns=["ID", "NAME", "BUDGET"], show="headings")
+    table_dept_info.place(x=10, y=50, width=610, height=190)
+    table_dept_info.heading("ID", text="부서ID")
+    table_dept_info.heading("NAME", text="부서명")
+    table_dept_info.heading("BUDGET", text="예산")
 
     '''''''''''''''''''''
     부서 정보 입력 부분 정의
     '''''''''''''''''''''
     # 부서 정보 입력 Label widget
     label_set_dept_info = Label(window, text="부서 정보 입력")
-    label_set_dept_info.place(x=560, y=10, width=100, height=20)
+    label_set_dept_info.place(x=630, y=10, width=100, height=20)
     # 부서ID 표시용 Label Widget
     label_dept_id = Label(window, text="부서 ID :")
-    label_dept_id.place(x=560, y=40, width=100, height=20)
+    label_dept_id.place(x=630, y=40, width=100, height=20)
     # 부서IO 입력용 Entry Widget
     entry_dept_id = Entry(window)
-    entry_dept_id.place(x=670, y=40, width=170, height=30)
+    entry_dept_id.place(x=740, y=40, width=170, height=30)
     # 부서명 표시용 Label Widget
     label_dept_name = Label(window, text="부서명 :")
-    label_dept_name.place(x=560, y=80, width=100, height=20)
+    label_dept_name.place(x=630, y=80, width=100, height=20)
     # 부서명 입력용 Entry Widget
     entry_dept_name = Entry(window)
-    entry_dept_name.place(x=670, y=80, width=170, height=30)
+    entry_dept_name.place(x=740, y=80, width=170, height=30)
     # 부서 Budget 표시용 Label Widget
     label_dept_budget = Label(window, text="예산 :")
-    label_dept_budget.place(x=560, y=120, width=100, height=20)
+    label_dept_budget.place(x=630, y=120, width=100, height=20)
     # 부서 Budget 입력용 Entry Widget
     entry_dept_budget = Entry(window)
-    entry_dept_budget.place(x=670, y=120, width=170, height=30)
+    entry_dept_budget.place(x=740, y=120, width=170, height=30)
     # 부서 정보 입력 Button Widget
     btn_db_set_dept = Button(window, text="입력", command=click_btn_set_dept_info)
-    btn_db_set_dept.place(x=640, y=160, width=120, height=30)
+    btn_db_set_dept.place(x=710, y=160, width=120, height=30)
 
     '''''''''''''''''''''
     직원 정보 레포팅 부분 정의
@@ -87,6 +84,7 @@ def initialize_widget():
             cur.execute(sql)
             records = cur.fetchall()
             emp_names = [str(record[0]) for record in records]
+
     # 직원 정보 레포트 Label widget
     label_get_emp_info = Label(window, text="직원 정보 Report")
     label_get_emp_info.place(x=110, y=300, width=100, height=20)
